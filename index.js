@@ -119,7 +119,7 @@ const sendEmail = async (filePath) => {
     // Email options
     const mailOptions = {
         from: 'tech.support@rmc.in', // Replace with your email address
-        to: 'it@rmc.in',
+        to: 'it@rmc.in,tech.aupport@rmc.in',
         subject: 'Website Status Report',
         text: 'Please find the attached website status report.',
         attachments: [
