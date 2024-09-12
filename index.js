@@ -181,6 +181,6 @@ cron.schedule('0 12 * * *', async () => {
     await sendEmail(dailyReportPath);
 });
 
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(5500, () => {
+    console.log('Server is running on http://localhost:5500');
 });
