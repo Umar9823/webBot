@@ -19,44 +19,42 @@ const websites = [
 // Function to check website status
 const checkWebsiteStatus = async (url) => {
     try {
-        const response = await axios.get(url, { timeout: 5000 }); 
+        const response = await axios.get(url, { timeout: 5000 });
         if (response.status === 200) {
-            return 'Up'; 
+            return 'Up';
         } else if (response.status >= 400 && response.status < 500) {
             return `Down (Client Error: ${response.status})`;
         } else if (response.status >= 500) {
-            return `Down (Server Error: ${response.status})`; 
+            return `Down (Server Error: ${response.status})`;
         } else {
-            return `Unknown Status (Code: ${response.status})`; 
+            return `Unknown Status (Code: ${response.status})`;
         }
     } catch (error) {
         if (error.code === 'ECONNREFUSED') {
-            return 'Down (Connection Refused)'; 
+            return 'Down (Connection Refused)';
         } else if (error.code === 'ETIMEDOUT') {
-            return 'Down (Timeout)'; 
+            return 'Down (Timeout)';
         } else if (error.code === 'ENOTFOUND') {
-            return 'Down (DNS Lookup Failed)'; 
+            return 'Down (DNS Lookup Failed)';
         } else if (error.code === 'ERR_SSL_CERT') {
-            return 'Down (SSL Certificate Error)'; 
+            return 'Down (SSL Certificate Error)';
         } else if (error.message && error.message.includes('too many redirects')) {
-            return 'Down (Redirect Loop)'; 
+            return 'Down (Redirect Loop)';
         } else if (error.response && error.response.status === 401) {
-            return 'Down (Unauthorized Access)'; // 401 Unauthorized
+            return 'Down (Unauthorized Access)';
         } else if (error.response && error.response.status === 403) {
-            return 'Down (Forbidden)'; // 403 Forbidden
+            return 'Down (Forbidden)';
         } else if (error.response && error.response.status === 404) {
-            return 'Down (Not Found)'; // 404 Not Found
+            return 'Down (Not Found)';
         } else if (error.message && error.message.includes('Network Unreachable')) {
-            return 'Down (Network Unreachable)'; // General network issue
+            return 'Down (Network Unreachable)';
         } else if (error.response) {
-            return `Down (Error Code: ${error.response.status})`; // Error response with status code
+            return `Down (Error Code: ${error.response.status})`;
         } else {
-            return 'Down (Unknown Error)'; // Other unknown errors
+            return 'Down (Unknown Error)';
         }
     }
 };
-
-
 
 // Function to draw a table in the PDF without borders
 const drawTable = (doc, startX, startY, data) => {
